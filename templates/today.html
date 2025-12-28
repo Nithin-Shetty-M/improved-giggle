@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Today's Birthdays</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="/static/app.js"></script>
+</head>
+<body>
+
+<div class="loader" id="loader"><div></div></div>
+
+<div class="topbar">
+    <div>Today's Birthdays</div>
+    <div><a href="/dashboard" style="color:white">Back</a></div>
+</div>
+
+<div class="container" style="max-width:700px">
+    {% if not birthdays %}
+        <div class="error">No birthdays today</div>
+    {% endif %}
+
+    <ul>
+        {% for b in birthdays %}
+        <li>{{ b[1] }} – {{ b[2] }}</li>
+        {% endfor %}
+    </ul>
+</div>
+
+</body>
+</html>

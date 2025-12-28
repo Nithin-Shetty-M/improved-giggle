@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="/static/app.js"></script>
+</head>
+<body>
+
+<div class="loader" id="loader"><div></div></div>
+
+<div class="topbar">
+    <div>Welcome, {{ session.name }}</div>
+    <div>
+        <a href="/today" style="color:white;margin-right:15px">Today</a>
+        <a href="/logout" style="color:white">Logout</a>
+    </div>
+</div>
+
+<div class="container" style="max-width:800px">
+    <h2>Add Birthday</h2>
+
+    <form method="post" action="/add">
+        <input name="name" placeholder="Name" required>
+        <input name="email" placeholder="Email" required>
+        <input name="day" placeholder="Day" required>
+        <input name="month" placeholder="Month" required>
+        <select name="gender">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+        </select>
+        <button>Add</button>
+    </form>
+
+    <table class="table">
+        <tr><th>Name</th><th>Email</th><th>DOB</th><th>Action</th></tr>
+        {% for b in birthdays %}
+        <tr>
+            <td>{{ b[1] }}</td>
+            <td>{{ b[2] }}</td>
+            <td>{{ b[3] }}/{{ b[4] }}</td>
+            <td><a href="/delete/{{ b[0] }}">Delete</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+</body>
+</html>

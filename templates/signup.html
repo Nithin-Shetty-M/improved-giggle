@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Signup</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div class="container">
+    <h2>Create Account</h2>
+
+    {% if error %}<div class="error">{{ error }}</div>{% endif %}
+
+    <form method="post">
+        <input
+  type="text"
+  name="name"
+  placeholder="Full Name"
+  required
+  minlength="2"
+  autocomplete="name"
+/>
+
+
+        <input name="email" placeholder="Gmail Address" required>
+        <input type="password" name="password" placeholder="Password (8–16 chars)" required>
+        <input type="password" name="confirm" placeholder="Confirm Password" required>
+        <button>Send OTP</button>
+    </form>
+
+    <div class="link">
+        Already registered? <a href="/">Login</a>
+    </div>
+</div>
+</body>
+</html>

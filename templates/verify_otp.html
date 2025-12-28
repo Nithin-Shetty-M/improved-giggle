@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Verify OTP</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div class="container">
+    <h2>Verify OTP</h2>
+
+    {% if error %}<div class="error">{{ error }}</div>{% endif %}
+
+    <form method="post">
+        <input type="text"
+       name="otp"
+       maxlength="6"
+       required>
+
+        <button>Verify</button>
+    </form>
+
+    <p style="text-align:center;margin-top:15px;color:#555">
+        OTP sent to <b>{{ email }}</b>
+    </p>
+</div>
+</body>
+</html>
