@@ -2,29 +2,141 @@
 <html>
 <head>
     <title>Today's Birthdays</title>
-    <link rel="stylesheet" href="/static/style.css">
-    <script src="/static/app.js"></script>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f4f6f8;
+            padding: 30px;
+        }
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 900px;
+            margin: auto;
+        }
+        h2 {
+            margin-bottom: 15px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background: #f1f5f9;
+        }
+        .actions {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+        }
+        button {
+            padding: 10px 16px;
+            border-radius: 8px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .send {
+            background: #4f46e5;
+            color: white;
+        }
+        .back {
+            background: #e5e7eb;
+        }
+        .empty {
+            text-align: center;
+            color: #555;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
 
-<div class="loader" id="loader"><div></div></div>
+<div class="card">
+    <h2>🎉 Today’s Birthdays</h2>
 
-<div class="topbar">
-    <div>Today's Birthdays</div>
-    <div><a href="/dashboard" style="color:white">Back</a></div>
-</div>
+    {% if birthdays %}
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    <input type="checkbox" id="selectAll">
+                </th>
+                <th>Name</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for b in birthdays %}
+            <tr>
+                <td>
+                    <input type="checkbox" class="person"
+                        data-name="{{ b[1] }}"
+                        data-email="{{ b[2] }}">
+                </td>
+                <td>{{ b[1] }}</td>
+                <td>{{ b[2] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 
-<div class="container" style="max-width:700px">
-    {% if not birthdays %}
-        <div class="error">No birthdays today</div>
+    <div class="actions">
+        <button class="send" onclick="sendEmails()">📧 Send Wishes</button>
+        <button class="back" onclick="window.location.href='{{ url_for('dashboard') }}'">
+            ⬅ Back
+        </button>
+    </div>
+
+    {% else %}
+        <div class="empty">No birthdays today 🎂</div>
+        <br>
+        <button class="back" onclick="window.location.href='{{ url_for('dashboard') }}'">
+            ⬅ Back
+        </button>
     {% endif %}
-
-    <ul>
-        {% for b in birthdays %}
-        <li>{{ b[1] }} – {{ b[2] }}</li>
-        {% endfor %}
-    </ul>
 </div>
+
+<script>
+document.getElementById('selectAll')?.addEventListener('change', function () {
+    document.querySelectorAll('.person').forEach(cb => cb.checked = this.checked);
+});
+
+function sendEmails() {
+    const selected = [];
+    document.querySelectorAll('.person:checked').forEach(cb => {
+        selected.push({
+            name: cb.dataset.name,
+            email: cb.dataset.email
+        });
+    });
+
+    if (selected.length === 0) {
+        alert("Please select at least one birthday");
+        return;
+    }
+
+    fetch('{{ url_for("send") }}', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({selected})
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.status === 'sent') {
+            alert("🎉 Birthday wishes sent successfully!");
+        } else {
+            alert("No birthdays selected.");
+        }
+    });
+}
+</script>
 
 </body>
 </html>

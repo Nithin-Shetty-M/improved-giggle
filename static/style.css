@@ -127,6 +127,35 @@ button:hover {
     border-radius: 50%;
     animation: spin 1s linear infinite;
 }
+.profile-box {
+  background: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.profile-box input {
+  padding: 8px;
+  width: 200px;
+}
+.btn-secondary {
+    background: #10b981;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    margin-left: 10px;
+}
+.btn-secondary:hover {
+    background: #059669;
+}
+
+.profile-box button {
+  padding: 8px 12px;
+  margin-left: 5px;
+}
+
 
 @keyframes spin {
     to { transform: rotate(360deg); }

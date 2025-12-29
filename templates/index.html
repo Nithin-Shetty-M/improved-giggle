@@ -6,15 +6,35 @@
     <script src="/static/app.js"></script>
 </head>
 <body>
+{% if session.name %}
+  <div class="profile-box">
+    <h2>Welcome, {{ session.name }}</h2>
+    <form method="POST" action="/update_name">
+      <input type="text" name="name" value="{{ session.name }}" required>
+      <button type="submit">Update Name</button>
+    </form>
+  </div>
+{% else %}
+  <div class="profile-box">
+    <form method="POST" action="/update_name">
+      <input type="text" name="name" placeholder="Enter your name" required>
+      <button type="submit">Save Name</button>
+    </form>
+  </div>
+{% endif %}
+
 
 <div class="loader" id="loader"><div></div></div>
 
 <div class="topbar">
     <div>Welcome, {{ session.name }}</div>
     <div>
-        <a href="/today" style="color:white;margin-right:15px">Today</a>
-        <a href="/logout" style="color:white">Logout</a>
+        <a href="/logout" style="color:rgb(248, 4, 4)">Logout</a>
     </div>
+</div>
+<div><a href="{{ url_for('today') }}" class="btn btn-secondary">
+    🎂 Today’s Birthdays
+</a>
 </div>
 
 <div class="container" style="max-width:800px">
