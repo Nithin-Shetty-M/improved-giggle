@@ -29,13 +29,14 @@
 <div class="topbar">
     <div>Welcome, {{ session.name }}</div>
     <div>
-        <a href="/logout" style="color:rgb(248, 4, 4)">Logout</a>
+        <a href="/logout" style="color:rgb(239, 233, 233)" >Logout</a>
     </div>
-</div>
-<div><a href="{{ url_for('today') }}" class="btn btn-secondary">
+    <div><a href="{{ url_for('today') }}" class="btn btn-secondary">
     🎂 Today’s Birthdays
 </a>
 </div>
+</div>
+
 
 <div class="container" style="max-width:800px">
     <h2>Add Birthday</h2>

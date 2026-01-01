@@ -5,6 +5,7 @@ import sqlite3, os, hashlib, random, smtplib, re
 from datetime import datetime
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+import os
 
 app = Flask(__name__)
 app.secret_key = 'super-secret-key'
@@ -12,8 +13,8 @@ app.secret_key = 'super-secret-key'
 # ---------------- CONFIG ----------------
 SMTP_SERVER = 'smtp.gmail.com'
 SMTP_PORT = 587
-SENDER_EMAIL = '230841@sdmcujire.in'        # ADMIN EMAIL (FILL AT RUNTIME / ENV)
-SENDER_APP_PASSWORD = 'vovl ubgl acsw pvem' # ADMIN APP PASSWORD (FILL AT RUNTIME / ENV)
+SENDER_EMAIL = 'dailybirthdaywisher@gmail.com'        # ADMIN EMAIL (FILL AT RUNTIME / ENV)
+SENDER_APP_PASSWORD = 'bici dlqj otsu dvor' # ADMIN APP PASSWORD (FILL AT RUNTIME / ENV)
 
 USERS_DB = 'users.db'
 DATA_DIR = 'data'
@@ -284,5 +285,11 @@ def logout():
     session.clear()
     return redirect(url_for('login'))
 
-if __name__ == '__main__':
-    app.run(debug=True)
+# if __name__ == '__main__':
+#     app.run(debug=True)
+
+if __name__ == "__main__":
+    app.run(
+        host="0.0.0.0",
+        port=int(os.environ.get("PORT", 5000))
+    )
